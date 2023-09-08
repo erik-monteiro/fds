@@ -26,79 +26,8 @@ class Acervo
         livros.add(new Livro(17,"Padroes de Projeto","Lala Pato",2019));
     }
 
-    @GetMapping("/")
-    @CrossOrigin(origins = "*")
-    public String getSaudacao() {
-        return "Bem vindo as biblioteca central!";
-    }
 
-    @GetMapping("/livros")
-    @CrossOrigin(origins = "*")
-    public List<Livro> getLivros() {
-        return livros;
-    }
-
-    // Solucao da dinâmica
-    @GetMapping("/titulos")
-    @CrossOrigin(origins = "*")
-    public List<String> getTitulos() {
-        return livros.stream()
-               .map(livro->livro.titulo())
-               .toList();
-    }
-
-    @GetMapping("/autores")
-    @CrossOrigin(origins = "*")
-    public List<String> getAutores() {
-        return livros.stream()
-               .map(livro->livro.autor())
-               .toList();
-    }
-
-    // Recebendo uma Qwery String
-    // Devolve os livros de um determinado autor
-    @GetMapping("/livrosautor")
-    @CrossOrigin(origins = "*")
-    public List<Livro> getLivrosDoAutor(@RequestParam(value = "autor") String autor) {
-        return livros.stream()
-               .filter(livro->livro.autor().equals(autor))
-               .toList();
-    }
-
-    /* 
-    // Recebendo Path Parameters
-    // Retorna o livro que tem determinado título
-    @GetMapping("/livrotitulo/{titulo}")
-    @CrossOrigin(origins = "*")
-    public Livro getLivroTitulo(@PathVariable("titulo") String titulo) {
-        return livros.stream()
-               .filter(livro->livro.titulo().equals(titulo))
-               .findFirst()
-               .orElse(null);   
-    }
-    */
-
-    // Recebendo Path Parameters - versão usando ResponseEntity
-    // Retorna o livro que tem determinado título
-    @GetMapping("/livrotitulo/{titulo}")
-    @CrossOrigin(origins = "*")
-    public ResponseEntity<Livro> getLivroTitulo(@PathVariable("titulo") String titulo) {
-        Livro resp = livros.stream()
-               .filter(livro->livro.titulo().equals(titulo))
-               .findFirst()
-               .orElse(null);   
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(resp);
-    }
-
-
-    // Recebendo parâmetros no corpo da mensagem (POST)
-    // Cadastra um livro novo
-    @PostMapping("/novolivro")
-    @CrossOrigin(origins = "*")
-    public boolean cadastraLivroNovo(@RequestBody final Livro livro) {
-        livros.add(livro);
-        return true;
+    public List<Livro> getAll() {
+        return livros.stream().toList();
     }
 }
