@@ -2,6 +2,7 @@ package com.bcopstein.endpointsdemo1;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -86,4 +87,23 @@ public class DemoController
         if (acervo.cadastraLivroNovo(livro)) { return true; }
         return false;
     }
+
+    @GetMapping("/livros/{autor}")
+    @CrossOrigin(origins = "*")
+    public int getNumeroDeObrasDoAutor(@PathVariable(value = "autor") String autor) {
+        return acervo.getNumeroDeObrasDoAutor(autor);
+    }
+
+    @GetMapping("/livros/{autor}/{ano}")
+    @CrossOrigin(origins = "*")
+    public int getNumeroDeObrasDoAutorRecentes(@PathVariable(value = "autor") String autor, @PathVariable(value = "ano") int ano) {
+        return acervo.getNumeroDeObrasDoAutorRecentes(autor, ano);
+    }
+
+    @GetMapping("/mediaObrasPorAutor")
+    @CrossOrigin(origins = "*")
+    public Map<String, Double> calcularMediaObrasPorAutor() {
+        return acervo.calcularMediaObrasPorAutor();
+    }
+
 }
