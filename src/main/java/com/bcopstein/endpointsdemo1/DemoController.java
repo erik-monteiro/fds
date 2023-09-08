@@ -39,17 +39,13 @@ public class DemoController
     @GetMapping("/titulos")
     @CrossOrigin(origins = "*")
     public List<String> getTitulos() {
-        return livros.stream()
-               .map(livro->livro.titulo())
-               .toList();
+        return acervo.getTitulos();
     }
 
     @GetMapping("/autores")
     @CrossOrigin(origins = "*")
     public List<String> getAutores() {
-        return livros.stream()
-               .map(livro->livro.autor())
-               .toList();
+        return acervo.getAutores();
     }
 
     // Recebendo uma Qwery String
@@ -57,9 +53,7 @@ public class DemoController
     @GetMapping("/livrosautor")
     @CrossOrigin(origins = "*")
     public List<Livro> getLivrosDoAutor(@RequestParam(value = "autor") String autor) {
-        return livros.stream()
-               .filter(livro->livro.autor().equals(autor))
-               .toList();
+        return acervo.getLivrosDoAutor(autor);
     }
 
     /* 
@@ -80,13 +74,7 @@ public class DemoController
     @GetMapping("/livrotitulo/{titulo}")
     @CrossOrigin(origins = "*")
     public ResponseEntity<Livro> getLivroTitulo(@PathVariable("titulo") String titulo) {
-        Livro resp = livros.stream()
-               .filter(livro->livro.titulo().equals(titulo))
-               .findFirst()
-               .orElse(null);   
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(resp);
+        return acervo.getLivroTitulo(titulo);
     }
 
 
@@ -95,7 +83,7 @@ public class DemoController
     @PostMapping("/novolivro")
     @CrossOrigin(origins = "*")
     public boolean cadastraLivroNovo(@RequestBody final Livro livro) {
-        livros.add(livro);
-        return true;
+        if (acervo.cadastraLivroNovo(livro)) { return true; }
+        return false;
     }
 }

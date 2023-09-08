@@ -30,4 +30,28 @@ class Acervo
     public List<Livro> getAll() {
         return livros.stream().toList();
     }
+
+    public List<String> getTitulos() {
+        return livros.stream().map(livro -> livro.titulo()).toList();
+    }
+
+    public List<String> getAutores() {
+        return livros.stream().map(livro -> livro.autor()).toList();
+    }
+
+    public List<Livro> getLivrosDoAutor(@RequestParam(value = "autor") String autor) {
+        return livros.stream().filter(livro -> livro.autor().equals(autor)).toList();
+    }
+
+    public ResponseEntity<Livro> getLivroTitulo(@PathVariable("titulo") String titulo) {
+        Livro resp = livros.stream().filter(livro -> livro.titulo()
+                            .equals(titulo)).findFirst().orElse(null);
+
+        return ResponseEntity.status(HttpStatus.OK).body(resp);
+    }
+
+    public boolean cadastraLivroNovo(@RequestBody final Livro livro) {
+        livros.add(livro);
+        return true;
+    }
 }
