@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/biblioteca")
 public class DemoController
 {
-    private Acervo acervo;
+    private AcervoJDBCImpl acervo;
 
-    public DemoController(Acervo acervo) {
+    public DemoController(AcervoJDBCImpl acervo) {
         this.acervo = acervo;
     }
 
@@ -85,6 +85,13 @@ public class DemoController
     @CrossOrigin(origins = "*")
     public boolean cadastraLivroNovo(@RequestBody final Livro livro) {
         if (acervo.cadastraLivroNovo(livro)) { return true; }
+        return false;
+    }
+
+    @GetMapping("/removelivro/{codigo}")
+    @CrossOrigin(origins = "*")
+    public boolean removeLivro(@PathVariable(value = "codigo") int codigo) {
+        if (acervo.removeLivro(codigo)) { return true; }
         return false;
     }
 
