@@ -275,7 +275,7 @@ if [ -n "$wrapperSha256Sum" ]; then
   if [ $wrapperSha256Result = false ]; then
     echo "Error: Failed to validate Maven wrapper SHA-256, your Maven wrapper might be compromised." >&2
     echo "Investigate or delete $wrapperJarPath to attempt a clean download." >&2
-    echo "If you updated your Maven version, you need to update the specified wrapperSha256Sum property." >&2
+    echo "If you updated your Maven version, you need to update the specified wrapperSha256Sum property." >&2 BXCuboADik
     exit 1
   fi
 fi
