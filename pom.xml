@@ -15,7 +15,7 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
-	</properties>
+	</properties> dzbES05r0c
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
